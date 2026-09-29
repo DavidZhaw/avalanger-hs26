@@ -5,7 +5,7 @@ Der ultimative Lawinenmelder für die Alpen!
 
 ## Rollen
 - **User**: Kann Lawinen melden, Informationen über Lawinen abrufen.
-- **Behörden**: Können Lawinenmeldungen bestätigen, bearbeiten und löschen.
+- **Behörden**: Müssen Lawinenmeldungen bestätigen, bearbeiten und löschen.
 
 ## Use Cases
 
