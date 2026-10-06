@@ -6,8 +6,10 @@ import org.springframework.data.annotation.Id;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter 
+@Setter
 @RequiredArgsConstructor
 @Document("avalanges")
 public class Avalange {
