@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zhaw.avalanger.Repository.AvalangeRepository;
 import ch.zhaw.avalanger.model.Avalange;
 import ch.zhaw.avalanger.model.AvalangeCreateDTO;
 import ch.zhaw.avalanger.model.AvalangeState;
+import ch.zhaw.avalanger.model.AvalangeStateAggregation;
+import ch.zhaw.avalanger.repository.AvalangeRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/avalange")
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class AvalangeController {
     private final AvalangeRepository avalangeRepository;
 
@@ -33,8 +34,21 @@ public class AvalangeController {
             return ResponseEntity.ok(avalangeRepository.findByCountry(country));
         } else if (state != null) {
             return ResponseEntity.ok(avalangeRepository.findByState(state));
+        } else {
+            return ResponseEntity.ok(avalangeRepository.findAll());
         }
-        return ResponseEntity.ok(avalangeRepository.findAll());
+    }
+
+    @PostMapping 
+    public ResponseEntity<Avalange> createAvalange(@RequestBody AvalangeCreateDTO avalange) {
+        Avalange avalangeToSave = new Avalange(avalange.getCountry(), avalange.getDescription());
+        Avalange savedAvalange = avalangeRepository.save(avalangeToSave);
+        return ResponseEntity.ok(savedAvalange);
+    }
+
+    @GetMapping("/states")
+    public ResponseEntity<List<AvalangeStateAggregation>> getAvalangeStates() {
+        return ResponseEntity.ok(avalangeRepository.findAvalangeStates());
     }
 
     @PostMapping
