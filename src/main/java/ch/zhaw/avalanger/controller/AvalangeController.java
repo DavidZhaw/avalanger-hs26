@@ -50,4 +50,12 @@ public class AvalangeController {
     public ResponseEntity<List<AvalangeStateAggregation>> getAvalangeStates() {
         return ResponseEntity.ok(avalangeRepository.findAvalangeStates());
     }
+
+    @PostMapping
+    public ResponseEntity<Avalange> createAvalange(@RequestBody AvalangeCreateDTO avalange) {
+        Avalange avalangeToSave = new Avalange(avalange.getCountry(), avalange.getDescription());
+        Avalange savedAvalange = avalangeRepository.save(avalangeToSave);
+        return ResponseEntity.ok(savedAvalange);
+    }
+
 }
